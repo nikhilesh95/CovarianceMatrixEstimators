@@ -12,38 +12,46 @@ The goal of this project is to showcase a robust system for estimating the co-va
 
 Three estimators of co-variance are used in this project. 
 First, the sample co-variance matrix, which is an unbiased estimator of the true population co-variance matrix when number of observations (returns) is much larger than number of features (assets).
+
 Second, a shrinkage co-variance estimator. The Ledoit-Wolf estimator from the scikit-learn library was used here.
 Third, an aggregate estimator that combines the previous 2 estimators (equally weighted). This is an attempt to cover the flaws from the sample and shrinkage estimators by using a combination of the two.
+
 Either Monthly or Daily data can be used for estimation, however daily data is more susceptible to noise.
 
 
 
 ### *Libraries Used:* 
 
-scikit-learn – For co-variance estimator functions 
-pandas – For data input and processing 
-NumPy – For Numerical and matrix calculations
-matplotlib – For plotting benchmark results
+* scikit-learn – For co-variance estimator functions 
+* pandas – For data input and processing 
+* NumPy – For Numerical and matrix calculations
+* matplotlib – For plotting benchmark results
 
 ### *Benchmarking:*
 
 The key idea is to train on historical data to estimate a co-variance matrix, and then generate a minimum variance portfolio from it. Then, based on future (out-of-sample) data, assess the performance of each MVP. The main benchmarks used to assess performance are:
 1. Total portfolio value after out-of-sample period
 1. Standard deviation of portfolio and each asset as a proxy for risk
+
 One run of the benchmark takes in one in-sample period and one out-of-sample period. The co-variance matrix and the minimum variance portfolio weights are estimated on the in-sample data, and the total value of the portfolio and it’s standard deviation (as well as the standard deviated of each individual stock) are calculated at the end of the out-of-sample period.
 This is repeated for successive periods. 
+
 E.g. From starting time T:
 *First iteration:* {T-10, T} is considered the in-sample and {T, T+1} the out-of-sample for the first run.
 *Second iteration:* Now {T-9, T+1} is the in-sample period and {T+1, T+2} is the out-of-sample period.
+
 Repeat for multiple iterations and chart the performance of each estimator against iterations.
 
 
 ## Class Structure
 
-DateRange: Maintains in-sample and out-of-sample date ranges
-Estimator: Used to process input file and estimate co-variance matrix from in-sample data based on the chosen estimator.
-Portfolio: Generates minimum variance portfolio from Estimator object, and calculates its total value, standard deviation, and standard deviation of each asset at the end of the out-of-sample period.
-Benchmark: The main driver class that creates Estimator and Portfolio objects and executes their functions, returning the performance metrics to be plotted.
+`DateRange:` Maintains in-sample and out-of-sample date ranges
+
+`Estimator:` Used to process input file and estimate co-variance matrix from in-sample data based on the chosen estimator.
+
+`Portfolio:` Generates minimum variance portfolio from Estimator object, and calculates its total value, standard deviation, and standard deviation of each asset at the end of the out-of-sample period.
+
+`Benchmark:` The main driver class that creates Estimator and Portfolio objects and executes their functions, returning the performance metrics to be plotted.
 
 ## Assumptions
 
@@ -67,14 +75,16 @@ Benchmarking the 3 estimators with parameters:
 * One benchmarking iteration
 
 Estimator | Sample | Ledoit-Wolf | Aggregate
---------------------------------------------
+---------------------------------------------------
 Total Return | -9.3 * 10-8	| 0.008289	| 0.00748
+
 Portfolio Risk (S.D.) | 7.58 * 10-9 | 0.000389 |	0.00033
 
 Repeating the above benchmark but using Monthly return data:
 Estimator	Sample	Ledoit-Wolf	Aggregate
------------------------------------------------
+------------------------------------------------------
 Total Return | 2.138 *10-8 | 0.006816 | 0.006254
+
 Portfolio Risk (S.D.) | 2.0123 * 10-8	| 0.002975	| 0.002399
 
 The Ledoit-Wolf estimator gave a net higher return but also exposed the portfolio to more risk than the minimum-variance portfolio calculated from the sample co-variance matrix.
@@ -87,6 +97,10 @@ The Ledoit-Wolf estimator gave a net higher return but also exposed the portfoli
 * Repeat for 3 iterations until end of 2016.
 The results are then charted for 3 years of out-of-sample data, and you can see which estimator produced the most returns and had the least volatility. This is just one sample test – many more can be produced using the script. A chart of the output is shown below:
   
+!(chart1)(test2portfolioRisk.png)
+
+!(chart2)(test2totalReturns.png)
+
 
 ## Possible Extensions/Improvements
 
