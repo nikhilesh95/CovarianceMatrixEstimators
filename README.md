@@ -1,4 +1,4 @@
-# Covariance Estimation Benchmarking System
+# Covariance Matrix Estimation & Benchmarking System
 ## Nikhilesh Sankara Narayanan
 ### nikhilesh@yahoo.in
 
