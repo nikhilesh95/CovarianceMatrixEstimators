@@ -4,7 +4,7 @@
 
 ## Scope
 
-The goal of this project is to showcase a robust system for estimating the co-variance matrix of a given portfolio’s returns, and to test the performance of the estimators by generating a Minimum Variance Portfolio (MVP) for each one and comparing their profitability and exposure to risk.
+The goal of this project is to showcase a robust system for estimating the co-variance matrix of a given portfolioâ€™s returns, and to test the performance of the estimators by generating a Minimum Variance Portfolio (MVP) for each one and comparing their profitability and exposure to risk.
 
 ## Methodology
 
@@ -22,10 +22,10 @@ Either Monthly or Daily data can be used for estimation, however daily data is m
 
 ### *Libraries Used:* 
 
-* scikit-learn – For co-variance estimator functions 
-* pandas – For data input and processing 
-* NumPy – For Numerical and matrix calculations
-* matplotlib – For plotting benchmark results
+* scikit-learn â€“ For co-variance estimator functions 
+* pandas â€“ For data input and processing 
+* NumPy â€“ For Numerical and matrix calculations
+* matplotlib â€“ For plotting benchmark results
 
 ### *Benchmarking:*
 
@@ -33,11 +33,13 @@ The key idea is to train on historical data to estimate a co-variance matrix, an
 1. Total portfolio value after out-of-sample period
 1. Standard deviation of portfolio and each asset as a proxy for risk
 
-One run of the benchmark takes in one in-sample period and one out-of-sample period. The co-variance matrix and the minimum variance portfolio weights are estimated on the in-sample data, and the total value of the portfolio and it’s standard deviation (as well as the standard deviated of each individual stock) are calculated at the end of the out-of-sample period.
+One run of the benchmark takes in one in-sample period and one out-of-sample period. The co-variance matrix and the minimum variance portfolio weights are estimated on the in-sample data, and the total value of the portfolio and itâ€™s standard deviation (as well as the standard deviated of each individual stock) are calculated at the end of the out-of-sample period.
 This is repeated for successive periods. 
 
 E.g. From starting time T:
+
 *First iteration:* {T-10, T} is considered the in-sample and {T, T+1} the out-of-sample for the first run.
+
 *Second iteration:* Now {T-9, T+1} is the in-sample period and {T+1, T+2} is the out-of-sample period.
 
 Repeat for multiple iterations and chart the performance of each estimator against iterations.
@@ -59,7 +61,7 @@ We assume the following:
 * No constraints on the MVP (e.g. no short-selling)
 * The number of observations is far larger than the number of stocks. Without this assumption, the sample co-variance matrix estimator (one of the baseline estimators) does not work.
 * The return data is Independent and Identically Distributed.
-* Data is inputted as a .csv file with the first column being ‘Date’ and the first row being labels. 
+* Data is inputted as a .csv file with the first column being â€˜Dateâ€™ and the first row being labels. 
 
 
 
@@ -74,16 +76,18 @@ Benchmarking the 3 estimators with parameters:
 * Out-of-sample data from 12/31/2015 to 12/30/2016
 * One benchmarking iteration
 
+
 Estimator | Sample | Ledoit-Wolf | Aggregate
----------------------------------------------------
+--------------------------------------------
 Total Return | -9.3 * 10-8	| 0.008289	| 0.00748
 
 Portfolio Risk (S.D.) | 7.58 * 10-9 | 0.000389 |	0.00033
 
 Repeating the above benchmark but using Monthly return data:
-Estimator	Sample	Ledoit-Wolf	Aggregate
-------------------------------------------------------
-Total Return | 2.138 *10-8 | 0.006816 | 0.006254
+
+Estimator |	Sample |	Ledoit-Wolf	| Aggregate
+---------------------------------------
+Total Return | 2.138 * 10-8 | 0.006816 | 0.006254
 
 Portfolio Risk (S.D.) | 2.0123 * 10-8	| 0.002975	| 0.002399
 
@@ -95,16 +99,16 @@ The Ledoit-Wolf estimator gave a net higher return but also exposed the portfoli
 * Out-of-sample data for the next 1 year
 * Updated in-sample data from 1/2/2008 to 12/31/2014 (6 years)
 * Repeat for 3 iterations until end of 2016.
-The results are then charted for 3 years of out-of-sample data, and you can see which estimator produced the most returns and had the least volatility. This is just one sample test – many more can be produced using the script. A chart of the output is shown below:
+The results are then charted for 3 years of out-of-sample data, and you can see which estimator produced the most returns and had the least volatility. This is just one sample test â€“ many more can be produced using the script. A chart of the output is shown below:
   
-!(chart1)(test2portfolioRisk.png)
+![chart1](test2portfolioRisk.png)
 
-!(chart2)(test2totalReturns.png)
+![chart2](test2totalReturns.png)
 
 
 ## Possible Extensions/Improvements
 
-* Currently  the program only considers three different types of estimators. Other estimators can easily added– all that needs to be done is to implement the estimation function and update the functions list in class Estimator. I had actually started implementing a Constant Correlation Estimator, but could not complete it in time. In addition, I suspect a bug in the sample co-variance matrix as its results are quite dissimilar.
+* Currently  the program only considers three different types of estimators. Other estimators can easily addedâ€“ all that needs to be done is to implement the estimation function and update the functions list in class Estimator. I had actually started implementing a Constant Correlation Estimator, but could not complete it in time. In addition, I suspect a bug in the sample co-variance matrix as its results are quite dissimilar.
 
 * The Class Design can be improved by using Inheritance ; where each estimator derives common properties from a Parent Estimator class, so that adding/updating one estimator does not require accessing the classes of the other ones.
 
