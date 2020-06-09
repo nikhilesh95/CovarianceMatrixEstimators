@@ -77,7 +77,7 @@ Benchmarking the 3 estimators with parameters:
 * One benchmarking iteration
 
 
-Estimator|Sample|Ledoit-Wolf| Aggregate
+Estimator|Sample|Ledoit-Wolf|Aggregate
 ---------------------------------------
 Total Return|-9.3 * 10-8|0.008289|0.00748
 
@@ -85,7 +85,7 @@ Portfolio Risk (S.D.)|7.58 * 10-9|0.000389|0.00033
 
 Repeating the above benchmark but using Monthly return data:
 
-Estimator|Sample|Ledoit-Wolf| Aggregate
+Estimator|Sample|Ledoit-Wolf|Aggregate
 ---------------------------------------
 Total Return|2.138 * 10-8|0.006816|0.006254
 
